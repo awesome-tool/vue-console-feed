@@ -606,9 +606,9 @@ export function _Encode(
           const attrs =
             first && data instanceof Element
               ? Array.from(data.attributes).map((item): [string, string] => [
-                  item.name,
-                  item.value
-                ])
+                item.name,
+                item.value
+              ])
               : undefined
           switch (data.nodeType) {
             case Node.ELEMENT_NODE: {
@@ -650,22 +650,18 @@ export function _Encode(
                 "@first": first,
                 "@attrs": attrs,
                 "@real": first ? null : createLinkObject(data),
-                "@childs": `<!DOCTYPE ${
-                  (data as unknown as DocumentType).name
-                } ${
-                  (data as unknown as DocumentType).publicId
+                "@childs": `<!DOCTYPE ${(data as unknown as DocumentType).name
+                  } ${(data as unknown as DocumentType).publicId
                     ? ` PUBLIC "${(data as unknown as DocumentType).publicId}"`
                     : ""
-                } ${
-                  !(data as unknown as DocumentType).publicId &&
-                  (data as unknown as DocumentType).systemId
+                  } ${!(data as unknown as DocumentType).publicId &&
+                    (data as unknown as DocumentType).systemId
                     ? " SYSTEM"
                     : ""
-                } ${
-                  (data as unknown as DocumentType).systemId
+                  } ${(data as unknown as DocumentType).systemId
                     ? ` "${(data as unknown as DocumentType).systemId}"`
                     : ""
-                } >`
+                  } >`
               }
             case Node.DOCUMENT_NODE:
               return {
@@ -687,10 +683,7 @@ export function _Encode(
               return {
                 "@t": "element",
                 "@name":
-                  "#" +
-                    nameByNodeType[
-                      data.nodeType as keyof typeof nameByNodeType
-                    ] ?? "#unknown",
+                  "#" + (nameByNodeType[data.nodeType as keyof typeof nameByNodeType] || 'unknown'),
                 "@first": first,
                 "@real": first ? null : createLinkObject(data)
               }

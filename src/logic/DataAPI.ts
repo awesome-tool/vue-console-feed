@@ -3,7 +3,7 @@
 // "group" | "groupEnd"
 
 import { sprintf } from "sprintf-js"
-import { readonly, shallowReactive } from "vue"
+import { readonly, reactive } from "vue"
 
 import { Encode } from "./Encode"
 import { isTable, Table } from "./Table"
@@ -54,10 +54,10 @@ export function printfArgs<T extends unknown[]>(args: T) {
 export class DataAPI<
   Encoded extends boolean = false,
   Data extends Encoded extends true
-    ? ReturnType<typeof Encode>
-    : unknown = Encoded extends true ? ReturnType<typeof Encode> : unknown
+  ? ReturnType<typeof Encode>
+  : unknown = Encoded extends true ? ReturnType<typeof Encode> : unknown
 > {
-  public readonly value: (LogData | TableData | GroupData)[] = shallowReactive(
+  public readonly value: (LogData | TableData | GroupData)[] = reactive(
     []
   )
 
@@ -67,9 +67,11 @@ export class DataAPI<
   private readonly timers = new Map<string, number>()
 
   private readonly encoded?: Encoded
+  private readonly asc?: boolean = false
 
-  constructor(encoded?: Encoded, private deepLocation = 0) {
+  constructor(encoded?: Encoded, private deepLocation = 0, asc = false) {
     this.encoded = encoded
+    this.asc = asc
   }
 
   private basicMethod(
@@ -104,7 +106,7 @@ export class DataAPI<
       return
     }
 
-    this.pushOfData({
+    this.insertData({
       type,
       data: readonly(dataEncoded) as typeof dataEncoded,
       count: 1
@@ -144,7 +146,7 @@ export class DataAPI<
     if (this.encoded) {
       /// encode
       if (isTable(data)) {
-        this.pushOfData({
+        this.insertData({
           type: "table",
           data: readonly(data) as typeof data
         })
@@ -156,7 +158,7 @@ export class DataAPI<
     }
 
     if (typeof data === "object") {
-      this.pushOfData({
+      this.insertData({
         type: "table",
         data: readonly(
           Table(data as unknown as object, this.deepLocation + 2)
@@ -169,16 +171,17 @@ export class DataAPI<
     this.log(data as unknown as Data)
   }
 
-  private pushOfData(data: LogData | TableData | GroupData): void {
+  private insertData(data: LogData | TableData | GroupData): void {
+    const method = this.asc ? "unshift" : "push"
     if (this.queueGroups.length > 0) {
       const currentGroup = this.queueGroups[this.queueGroups.length - 1]
 
       // exists
-      currentGroup["@items"].push(data)
+      currentGroup["@items"][method](data)
       return
     }
 
-    this.value.push(data)
+    this.value[method](data)
   }
 
   public group(
@@ -192,10 +195,10 @@ export class DataAPI<
           ? (key as ReturnType<typeof Encode>)
           : Encode(key, this.deepLocation + 2)
       ) as ReturnType<typeof Encode>,
-      "@items": shallowReactive([])
+      "@items": reactive([])
     }
 
-    this.pushOfData(newGroup)
+    this.insertData(newGroup)
     this.queueGroups.push(newGroup)
   }
 

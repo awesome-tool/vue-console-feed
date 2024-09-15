@@ -1,6 +1,6 @@
 {
-  "name": "vue-console-feed",
-  "version": "0.0.29",
+  "name": "@awesome-tool/vue-console-feed",
+  "version": "0.0.30",
   "description": "a repository npm package",
   "scripts": {
     "format": "prettier -w src",
@@ -62,28 +62,28 @@
     }
   },
   "devDependencies": {
-    "@tachibana-shin/eslint-config": "^1.0.2",
-    "@tachibana-shin/eslint-config-vue": "^1.0.7",
-    "@types/node": "^17.0.36",
-    "@types/sprintf-js": "^1.1.2",
-    "@vitejs/plugin-vue": "^3.0.1",
-    "bumpp": "^7.1.1",
-    "conventional-changelog-cli": "^2.2.2",
-    "cspell": "^6.0.0",
-    "eslint": "^8.16.0",
-    "eslint-plugin-vue": "^9.3.0",
-    "husky": "^8.0.1",
-    "jsdom": "^20.0.0",
-    "prettier": "^2.6.2",
+    "@tachibana-shin/eslint-config": "^1.1.1",
+    "@tachibana-shin/eslint-config-vue": "^1.1.1",
+    "@types/node": "^22.5.5",
+    "@types/sprintf-js": "^1.1.4",
+    "@vitejs/plugin-vue": "^5.1.3",
+    "bumpp": "^9.5.2",
+    "conventional-changelog-cli": "^5.0.0",
+    "cspell": "^8.14.2",
+    "eslint": "^9.10.0",
+    "eslint-plugin-vue": "^9.28.0",
+    "husky": "^9.1.6",
+    "jsdom": "^25.0.0",
+    "prettier": "^3.3.3",
     "sass": "^1.54.4",
-    "tsup": "^6.2.2",
-    "typescript": "^4.7.2",
-    "vite": "^4.2.1",
-    "vite-plugin-remove-console": "^2.1.0",
-    "vite-plugin-windicss": "^1.8.7",
-    "vitest": "^0.13.0",
-    "vue": "^3.2.38",
-    "vue-tsc": "^0.39.5",
+    "tsup": "^8.2.4",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.5",
+    "vite-plugin-remove-console": "^2.2.0",
+    "vite-plugin-windicss": "^1.9.3",
+    "vitest": "^2.1.1",
+    "vue": "^3.5.5",
+    "vue-tsc": "^2.1.6",
     "windicss": "^3.5.6"
   },
   "license": "MIT",
@@ -110,6 +110,6 @@
     "node": ">=10"
   },
   "dependencies": {
-    "sprintf-js": "^1.1.2"
+    "sprintf-js": "^1.1.3"
   }
 }
